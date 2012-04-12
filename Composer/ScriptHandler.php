@@ -1,6 +1,6 @@
 <?php
 
-namespace AlphaLemon\ElFinderBundle\Composer;
+namespace AlphaLemon\Block\BusinessCarouselBundle\Composer;
 
 use Composer\Script\Event;
 use Symfony\Component\Process\Process;
