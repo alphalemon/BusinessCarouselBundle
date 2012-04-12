@@ -1,0 +1,10 @@
+.carousel_container{width:100%;position:relative;z-index:1;height:210px;overflow:hidden}
+.carousel div{background:url(../images/bg_testimonials.gif) 0 bottom no-repeat #f5f5f5;padding:25px 27px 53px 29px}
+.carousel span{display:block;padding:0 0 0 11px;font-style:normal}
+carousel_container li{height:210px}
+.up, .down{position:absolute;z-index:2;bottom:8px;right:0;width:32px;height:32px;display:block}
+.up{right:33px;background:url(../images/marker_up.gif) 0 0 no-repeat}
+.down{background:url(../images/marker_down.gif) 0 0 no-repeat}
+.up:hover, .down:hover{background-position:bottom}
+.color1{color:#000}
+.color2{color:#60b000}

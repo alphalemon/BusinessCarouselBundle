@@ -1,0 +1,109 @@
+{#
+ This file is part of the BusinessCarouselBundle and it is distributed
+ under the GPL LICENSE Version 2.0. To use this application you must leave
+ intact this copyright notice.
+ 
+    Copyright (c) AlphaLemon <webmaster@alphalemon.com>
+ 
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+ 
+ For extra documentation and help please visit http://www.alphalemon.com
+ 
+    @license    GPL LICENSE Version 2.0 
+#}
+
+<form class="al_carousel_form al-items-list">    
+    <table>
+        <tr>
+            <td>
+                {{ form_label(form.name, "Name") }}
+            </td>
+            <td>
+                {{ form_widget(form.name, { 'attr': {'class' : 'input' }}) }}
+            </td>
+            <td>
+                {{ form_errors(form.name) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form_label(form.surname, "Surname") }}
+            </td>
+            <td>
+                {{ form_widget(form.surname, { 'attr': {'class' : 'input' }}) }}
+            </td>
+            <td>
+                {{ form_errors(form.surname) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form_label(form.role, "Role") }}
+            </td>
+            <td>
+                {{ form_widget(form.role, { 'attr': {'class' : 'input' }}) }}
+            </td>
+            <td>
+                {{ form_errors(form.role) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form_label(form.content, "Content") }}
+            </td>
+            <td>
+                {{ form_widget(form.content, { 'attr': {'class' : 'textarea' }}) }}
+            </td>
+            <td>
+                {{ form_errors(form.content) }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                {{ form_rest(form) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Save" class="input button al_large" />
+            </td>
+            <td colspan="2">
+                <input type="submit" value="List" class="al_list_carousel_items input button al_large" />
+            </td>
+        </tr>
+    </table> 
+</form>
+
+<div id="al_error"></div>
+
+<script>
+    
+    $(".al_carousel_form").submit(function(e) {
+        $.ajax({
+            type: "POST",
+            url: frontController + 'backend/' + $('#al_available_languages').val() + '/al_saveItem',
+            data: $(this).serialize(),
+            beforeSend: function()
+            {
+                $('body').AddAjaxLoader();
+            },
+            success: function(response)
+            {
+                updateCarouselFromJSon(response);
+            },
+            error: function(err)
+            {
+                $('#al_error').html(err.responseText);
+            },
+            complete: function()
+            {
+                $('body').RemoveAjaxLoader();
+            }
+        });
+
+        return false;
+    });
+    
+    $('.al_list_carousel_items').ListCarouselItems();
+</script>

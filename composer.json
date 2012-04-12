@@ -1,0 +1,19 @@
+{
+    "name": "alphalemon/app-business-carousel-bundle",
+    "description": "An AlphaLemon CMS app that adds a cool carousel content type and the related editor to manage it",
+    "keywords": ["alphalemon", "cms", "app"],
+    "homepage": "http://alphalemon.com",
+    "type": "symfony-bundle",
+    "license": "GPLv2",
+    "authors": [
+    {
+      "name": "AlphaLemon",
+      "email": "info@alphalemon.com"
+    }
+    ],
+    "autoload": {
+        "psr-0": { "AlphaLemon\\Block\\BusinessCarouselBundle": ""
+        }
+    },
+    "target-dir" : "AlphaLemon/Block/BusinessCarouselBundle"
+}

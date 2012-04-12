@@ -1,0 +1,15 @@
+AlphaLemon\Block\BusinessCarouselBundle\Model\AlAppBusinessCarousel:
+  properties:
+    name:
+      - NotBlank: { message: Name field can not be empty }
+      - MinLength: { limit: 3, message: Name field is too short. It should have 3 characters or more  }
+      - MaxLength: { limit: 128, message: Name field is too long. It should have 128 characters or less  }
+    surname:
+      - NotBlank: { message: Surname field can not be empty }
+      - MinLength: { limit: 3, message: Surname field is too short. It should have 6 characters or more  }
+      - MaxLength: { limit: 128, message: Surname field is too long. It should have 128 characters or less  }
+    role:
+      - NotBlank: { message: Role field can not be empty }
+      - MaxLength: { limit: 128, message: Role field is too long. It should have 128 characters or less  }
+    content:
+      - NotBlank: { message: Content field can not be empty }
