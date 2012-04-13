@@ -15,5 +15,13 @@
         "psr-0": { "AlphaLemon\\Block\\BusinessCarouselBundle": ""
         }
     },
-    "target-dir" : "AlphaLemon/Block/BusinessCarouselBundle"
+    "target-dir" : "AlphaLemon/Block/BusinessCarouselBundle",
+    "scripts": {
+        "post-install-cmd": [
+            "AlphaLemon\\Block\\BusinessCarouselBundle\\Composer\\ScriptHandler::setupDatabase"
+        ],
+        "post-update-cmd": [
+            "AlphaLemon\\Block\\BusinessCarouselBundle\\Composer\\ScriptHandler::setupDatabase"
+        ]
+    }
 }
