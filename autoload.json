@@ -1,6 +1,6 @@
 {
     "bundles" : {
-        "AlphaLemon\\Block\\BusinessCarouselBundle\\BusinessDropCapBundle" : {
+        "AlphaLemon\\Block\\BusinessCarouselBundle\\BusinessCarouselBundle" : {
             "environments" : ["alcms", "alcms_dev", "test"]
         }
     }
