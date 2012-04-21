@@ -1,7 +1,11 @@
 {
     "bundles" : {
-        "AlphaLemon\\Block\\BusinessCarouselBundle\\BusinessDropCapBundle" : {
+        "AlphaLemon\\Block\\BusinessCarouselBundle\\BusinessCarouselBundle" : {
             "environments" : ["alcms", "alcms_dev", "test"]
         }
+    },
+    "scripts" : {
+        "package-installed" : "\\AlphaLemon\\Block\\BusinessCarouselBundle\\Core\\Listener\\SetupListener",
+        "package-uninstalled" : "\\AlphaLemon\\Block\\BusinessCarouselBundle\\Core\\Listener\\SetupListener"
     }
 }
