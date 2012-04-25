@@ -22,37 +22,47 @@ class SetupListener
     public function onPackageInstalled(PackageInstalledEvent $event)
     {
         $container = $event->getContainer();
-        $connection = $this->getPropelConnection($container);
-        
-        // Sets phing include path
-        set_include_path($container->getParameter('kernel.root_dir').'/..'.PATH_SEPARATOR.$container->getParameter('propel.phing_path').'/classes'.PATH_SEPARATOR.get_include_path());
-        
-        // Builds the sql
-        AlToolkit::executeCommand($container->get('kernel'), 'propel:build-sql');        
-        
-        // Retrieves the CREATE TABLE for the al_app_business_carousel table
-        $sqlFile = $container->getParameter('kernel.root_dir') . DIRECTORY_SEPARATOR . 'propel' . DIRECTORY_SEPARATOR . 'sql' . DIRECTORY_SEPARATOR . $this->connectionName . '.sql';
-        $sql = file_get_contents($sqlFile);
-        preg_match('/CREATE TABLE `al_app_business_carousel[^;]+/s', $sql, $match);
-        if (!empty($match)) {
-            $this->queries[] = $match[0];
-        } else {
-            $this->queries[] =  'CREATE TABLE IF NOT EXISTS `al_app_business_carousel` (
-                                  `id` int(11) NOT NULL AUTO_INCREMENT,
-                                  `block_id` int(11) NOT NULL,
-                                  `name` varchar(128) DEFAULT NULL,
-                                  `surname` varchar(128) DEFAULT NULL,
-                                  `role` varchar(128) DEFAULT NULL,
-                                  `content` text NOT NULL,
-                                  PRIMARY KEY (`id`),
-                                  KEY `I_BLOCK` (`block_id`)
-                                ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;';
+        if ($container->has('propel.configuration')) {
+            ob_start();
+            $connection = $this->getPropelConnection($container);
+
+            // Sets phing include path
+            set_include_path($container->getParameter('kernel.root_dir').'/..'.PATH_SEPARATOR.$container->getParameter('propel.phing_path').'/classes'.PATH_SEPARATOR.get_include_path());
+
+            // Builds the sql
+            AlToolkit::executeCommand($container->get('kernel'), 'propel:build-sql');        
+
+            // Retrieves the CREATE TABLE for the al_app_business_carousel table
+            $sqlFile = $container->getParameter('kernel.root_dir') . DIRECTORY_SEPARATOR . 'propel' . DIRECTORY_SEPARATOR . 'sql' . DIRECTORY_SEPARATOR . $this->connectionName . '.sql';
+            $sql = file_get_contents($sqlFile);
+            preg_match('/CREATE TABLE `al_app_business_carousel[^;]+/s', $sql, $match);
+            if (!empty($match)) {
+                $this->queries[] = $match[0];
+            } else {
+                $this->queries[] =  'CREATE TABLE IF NOT EXISTS `al_app_business_carousel` (
+                                      `id` int(11) NOT NULL AUTO_INCREMENT,
+                                      `block_id` int(11) NOT NULL,
+                                      `name` varchar(128) DEFAULT NULL,
+                                      `surname` varchar(128) DEFAULT NULL,
+                                      `role` varchar(128) DEFAULT NULL,
+                                      `content` text NOT NULL,
+                                      PRIMARY KEY (`id`),
+                                      KEY `I_BLOCK` (`block_id`)
+                                    ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;';
+            }
+
+            $this->executeQueries($connection, $this->queries);
+
+            // Builds the model
+            AlToolkit::executeCommand($container->get('kernel'), 'propel:build-model');
+            
+            // Executes silently its job
+            ob_end_clean();
+            
+            $event->setSuccess(true);
         }
         
-        $this->executeQueries($connection, $this->queries);
-        
-        // Builds the model
-        AlToolkit::executeCommand($container->get('kernel'), 'propel:build-model');
+        return $event;
     }
 
     /**
