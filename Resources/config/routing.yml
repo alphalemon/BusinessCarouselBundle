@@ -1,0 +1,2 @@
+app_business_carousel:
+    resource:  "@BusinessCarouselBundle/Resources/config/routing.xml"
