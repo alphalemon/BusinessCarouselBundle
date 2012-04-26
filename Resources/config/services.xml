@@ -8,22 +8,22 @@
             <parameter key="html_editor">true</parameter>
         </parameter>
         
-        <parameter key="businesscarousel_required_stylesheets" type="collection">
+        <parameter key="businesscarousel.stylesheets" type="collection">
             <parameter>@BusinessCarouselBundle/Resources/public/css/business-carousel.css</parameter>
         </parameter>
         
-        <parameter key="businesscarousel_required_javascripts" type="collection">
+        <parameter key="businesscarousel.javascripts" type="collection">
             <parameter>@AlphaLemonThemeEngineBundle/Resources/public/js/vendor/jquery/*</parameter>
             <parameter>@BusinessCarouselBundle/Resources/public/js/jcarousellite.js</parameter>
             <parameter>@BusinessCarouselBundle/Resources/public/js/carousel.js</parameter>
             
         </parameter>
         
-        <parameter key="businesscarousel_home_cms_stylesheets" type="collection">
+        <parameter key="businesscarousel.stylesheets_cms" type="collection">
             <parameter>@BusinessCarouselBundle/Resources/public/css/business-carousel-editor.css</parameter>
         </parameter>
         
-        <parameter key="businesscarousel_home_cms_javascripts" type="collection">
+        <parameter key="businesscarousel.javascripts_cms" type="collection">
             <parameter>@BusinessCarouselBundle/Resources/public/js/crud.js</parameter>
         </parameter>
         

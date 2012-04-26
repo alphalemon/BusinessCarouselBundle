@@ -25,7 +25,7 @@ class AlBlockManagerBusinessCarousel extends AlBlockManager
 {
     public function getDefaultValue() {
         return array('HtmlContent' => '', 
-                     'InternalJavascript' => '$(".carousel").carousel();');
+                     'InternalJavascript' => '$(".carousel").startCarousel();');
     }
     
     public function getHtmlContent() {

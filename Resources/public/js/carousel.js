@@ -1,5 +1,5 @@
 (function($){
-    $.fn.carousel =function(visibleValue, speedValue, verticalValue, circularValue, easingValue, btnPrevValue, btnNextValue)
+    $.fn.startCarousel =function(visibleValue, speedValue, verticalValue, circularValue, easingValue, btnPrevValue, btnNextValue)
     {
         this.each(function() 
         {
