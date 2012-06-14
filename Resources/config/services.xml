@@ -7,29 +7,28 @@
         <parameter key="businesscarousel_editor_settings" type="collection">
             <parameter key="html_editor">true</parameter>
         </parameter>
-        
-        <parameter key="businesscarousel.stylesheets" type="collection">
+
+        <parameter key="businesscarousel.external_stylesheets" type="collection">
             <parameter>@BusinessCarouselBundle/Resources/public/css/business-carousel.css</parameter>
         </parameter>
-        
-        <parameter key="businesscarousel.javascripts" type="collection">
+
+        <parameter key="businesscarousel.external_javascripts" type="collection">
             <parameter>@AlphaLemonThemeEngineBundle/Resources/public/js/vendor/jquery/*</parameter>
             <parameter>@BusinessCarouselBundle/Resources/public/js/jcarousellite.js</parameter>
             <parameter>@BusinessCarouselBundle/Resources/public/js/carousel.js</parameter>
-            
         </parameter>
-        
-        <parameter key="businesscarousel.stylesheets_cms" type="collection">
+
+        <parameter key="businesscarousel.external_stylesheets.cms" type="collection">
             <parameter>@BusinessCarouselBundle/Resources/public/css/business-carousel-editor.css</parameter>
         </parameter>
-        
-        <parameter key="businesscarousel.javascripts_cms" type="collection">
+
+        <parameter key="businesscarousel.external_javascripts.cms" type="collection">
             <parameter>@BusinessCarouselBundle/Resources/public/js/crud.js</parameter>
         </parameter>
-        
+
         <parameter key="businesscarouseleditor_rendering.class">AlphaLemon\Block\BusinessCarouselBundle\Core\Listener\RenderingEditorListener</parameter>
     </parameters>
-    
+
     <services>
         <service id="businesscarouseleditor_rendering.class" class="%businesscarouseleditor_rendering.class%">
             <tag name="alcms.event_listener" event="actions.block_editor_rendering" method="onBlockEditorRendering" priority="0" />
