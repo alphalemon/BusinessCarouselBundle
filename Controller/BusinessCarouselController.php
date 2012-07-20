@@ -29,7 +29,7 @@ use AlphaLemon\AlphaLemonCmsBundle\Core\Content\Block\AlBlockManagerFactory;
 /**
  * BusinessCarouselController
  *
- * @author AlphaLemon <info@alphalemon.com>
+ * @author alphalemon <webmaster@alphalemon.com>
  */
 class BusinessCarouselController extends Controller
 {
@@ -74,7 +74,7 @@ class BusinessCarouselController extends Controller
         {
             $response = new Response();
             $response->setStatusCode('404');
-            return $this->render('AlphaLemonPageTreeBundle:Error:ajax_error.html.twig', array('message' => $e->getMessage()), $response);
+            return $this->render('AlphaLemonPageTreeBundle:Dialog:dialog.html.twig', array('message' => $e->getMessage()), $response);
         }
     }
     
@@ -98,7 +98,7 @@ class BusinessCarouselController extends Controller
         {
             $response = new Response();
             $response->setStatusCode('404');
-            return $this->render('AlphaLemonPageTreeBundle:Error:ajax_error.html.twig', array('message' => $e->getMessage()), $response);
+            return $this->render('AlphaLemonPageTreeBundle:Dialog:dialog.html.twig', array('message' => $e->getMessage()), $response);
         }
     }
     
@@ -108,7 +108,7 @@ class BusinessCarouselController extends Controller
         if(null === $alBlock) return "";
         $alBlockManager = AlBlockManagerFactory::createBlock($this->container, $alBlock);
         
-        return $alBlockManager->getHtmlContentCMSMode();
+        return $alBlockManager->getHtmlContent();
     }
 
     protected function setUpItem($blockId, $id = null)

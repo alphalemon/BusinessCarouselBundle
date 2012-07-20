@@ -28,7 +28,7 @@ class AlBlockManagerBusinessCarousel extends AlBlockManager
                      'InternalJavascript' => '$(".carousel").startCarousel();');
     }
     
-    public function getHtmlContent() {
+    public function getHtmlContentForDeploy() {
         $elements = array();
         $items = AlAppBusinessCarouselQuery::create()->filterByAlBlock($this->alBlock)->find();
         foreach($items as $item) {
@@ -46,8 +46,8 @@ class AlBlockManagerBusinessCarousel extends AlBlockManager
         return $carousel;
     }
     
-    public function getHtmlContentCMSMode() {
-        return $this->getHtmlContent() . sprintf('<script type="text/javascript">%s</script>', $this->getInternalJavascript());
+    public function getHtmlContent() {
+        return $this->getHtmlContentForDeploy() . sprintf('<script type="text/javascript">%s</script>', $this->getInternalJavascript());
     }
     
     protected function add(array $values) {

@@ -26,7 +26,7 @@ use AlphaLemon\Block\BusinessCarouselBundle\Model\AlAppBusinessCarouselQuery;
 /**
  * Manipulates the block's editor response when the editor has been rendered 
  *
- * @author AlphaLemon <info@alphalemon.com>
+ * @author alphalemon <webmaster@alphalemon.com>
  */
 class RenderingEditorListener 
 {
