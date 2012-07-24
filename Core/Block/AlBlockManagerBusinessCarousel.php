@@ -28,20 +28,24 @@ class AlBlockManagerBusinessCarousel extends AlBlockManager
                      'InternalJavascript' => '$(".carousel").startCarousel();');
     }
     
-    public function getHtmlContentForDeploy() {
+    public function getHtmlContentForDeploy()
+    {
+        $carousel = '';
         $elements = array();
-        $items = AlAppBusinessCarouselQuery::create()->filterByAlBlock($this->alBlock)->find();
-        foreach($items as $item) {
-            $elements[] = sprintf('<li><div>%s</div><span><strong class="color1">%s %s,</strong> <br />%s</span></li>', $item->getContent(), $item->getName(), $item->getSurname(), $item->getRole());
-        }
-        
-        $carousel = '<div class="carousel_container">';
-        $carousel .= '<div class="carousel">';
-        $carousel .= sprintf('<ul>%s</ul>', implode("\n", $elements));
-        $carousel .= '</div>';
-        $carousel .= '<a href="#" class="up"></a>';
-        $carousel .= '<a href="#" class="down"></a>';
-        $carousel .= '</div>';
+        if(class_exists('AlphaLemon\Block\BusinessCarouselBundle\Model\AlAppBusinessCarouselQuery')) {
+            $items = AlAppBusinessCarouselQuery::create()->filterByAlBlock($this->alBlock)->find();
+            foreach($items as $item) {
+                $elements[] = sprintf('<li><div>%s</div><span><strong class="color1">%s %s,</strong> <br />%s</span></li>', $item->getContent(), $item->getName(), $item->getSurname(), $item->getRole());
+            }
+
+            $carousel = '<div class="carousel_container">';
+            $carousel .= '<div class="carousel">';
+            $carousel .= sprintf('<ul>%s</ul>', implode("\n", $elements));
+            $carousel .= '</div>';
+            $carousel .= '<a href="#" class="up"></a>';
+            $carousel .= '<a href="#" class="down"></a>';
+            $carousel .= '</div>';
+        }        
         
         return $carousel;
     }

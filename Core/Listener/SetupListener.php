@@ -1,6 +1,6 @@
 <?php
 
-namespace AlphaLemon\Block\BusinessCarouselBundle\Core\Listener; 
+namespace AlphaLemon\Block\BusinessCarouselBundle\Core\Listener;
 
 use AlphaLemon\BootstrapBundle\Core\Event\PackageInstalledEvent;
 use AlphaLemon\BootstrapBundle\Core\Event\PackageUninstalledEvent;
@@ -10,17 +10,44 @@ use AlphaLemon\AlphaLemonCmsBundle\Core\Model\AlBlockQuery;
 /**
  * Executes some actions when a package is installed or uninstalled
  */
-class SetupListener 
+class SetupListener
 {
     private $queries = array('DROP TABLE al_app_business_carousel;',);
-    
+
     /**
      * The action performed when the BusinessCarousel package is installed
-     * 
-     * @param PackageInstalledEvent $event 
+     *
+     * @param PackageInstalledEvent $event
      */
     public function onPackageInstalled(PackageInstalledEvent $event)
-    {
+    {return;
+        /*
+        if (class_exists('PropelQuickBuilder') && class_exists('TypehintableBehavior')) {
+            $class = new \ReflectionClass('TypehintableBehavior');
+            $builder = new \PropelQuickBuilder();
+            $builder->getConfig()->setBuildProperty('behavior.typehintable.class', $class->getFileName());
+            $builder->setSchema(file_get_contents(__DIR__.'/../../Resources/config/schema.xml'));
+            $builder->buildClasses();
+
+            /*
+            $queries = explode(";", file_get_contents(__DIR__ . '/Functional/app/Resources/sql/database.sql'));
+            mysql_connect('localhost', 'root', '');
+            mysql_select_db('alphalemon_test');
+            foreach($queries as $query)
+            {
+                $query = trim($query);
+                if(!empty($query) != "") mysql_query($query);
+            }
+            mysql_close();*
+        }*/
+        
+        $container = $event->getContainer();
+        $res = \AlphaLemon\PageTreeBundle\Core\Tools\AlToolkit::executeCommand($container->get('kernel')->getRootDir(), 'propel:build-model');
+        
+        
+        exit;
+        
+        /*
         $container = $event->getContainer();
         if ($container->has('propel.configuration')) {
             ob_start();
@@ -30,7 +57,7 @@ class SetupListener
             set_include_path($container->getParameter('kernel.root_dir').'/..'.PATH_SEPARATOR.$container->getParameter('propel.phing_path').'/classes'.PATH_SEPARATOR.get_include_path());
 
             // Builds the sql
-            AlToolkit::executeCommand($container->get('kernel'), 'propel:build-sql');        
+            AlToolkit::executeCommand($container->get('kernel'), 'propel:build-sql');
 
             // Retrieves the CREATE TABLE for the al_app_business_carousel table
             $sqlFile = $container->getParameter('kernel.root_dir') . DIRECTORY_SEPARATOR . 'propel' . DIRECTORY_SEPARATOR . 'sql' . DIRECTORY_SEPARATOR . $this->connectionName . '.sql';
@@ -55,32 +82,32 @@ class SetupListener
 
             // Builds the model
             AlToolkit::executeCommand($container->get('kernel'), 'propel:build-model');
-            
+
             // Executes silently its job
             ob_end_clean();
-            
+
             $event->setSuccess(true);
-        }
-        
+        }*/
+
         return $event;
     }
 
     /**
      * The action performed when the BusinessCarousel package is uninstalled
-     * 
-     * @param PackageUninstalledEvent $event 
+     *
+     * @param PackageUninstalledEvent $event
      */
     public function onPackageUninstalled(PackageUninstalledEvent $event)
     {
         // Removes the BusinessCarousel blocks
         AlBlockQuery::create()->filterByClassName('BusinessCarousel')->delete();
-        
+
         // Removes the al_app_business_carousel table
         $container = $event->getContainer();
         $connection = $this->getPropelConnection($container);
         $this->executeQueries($connection, $this->queries);
     }
-    
+
     private function getPropelConnection($container)
     {
         $propelConfiguration = $container->get('propel.configuration');
@@ -90,11 +117,11 @@ class SetupListener
         } else {
             throw new \InvalidArgumentException(sprintf('Connection named %s doesn\'t exist', $this->connectionName));
         }
-        
+
         $connectionParams = $defaultConfig['connection'];
-        return new \PropelPDO($connectionParams['dsn'], $connectionParams['user'], $connectionParams['password']);
+        return new \PropelPDO($connectionParams['dsn'], $connectionParams['user'], (array_key_exists('password', $connectionParams)) ? $connectionParams['password'] : "");
     }
-    
+
     private function executeQueries(\PropelPDO $connection, array $queries)
     {
         // Excecutes the queries

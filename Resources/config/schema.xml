@@ -3,9 +3,9 @@
   <table name="al_app_business_carousel" idMethod="native">
     <column name="id" type="INTEGER" required="true" autoIncrement="true" primaryKey="true" />
     <column name="block_id" type="INTEGER" required="true" />
-    <foreign-key foreignTable="al_block" onDelete="CASCADE">
+    <!--<foreign-key foreignTable="al_block" onDelete="CASCADE">
       <reference local="block_id" foreign="id" />
-    </foreign-key>
+    </foreign-key>-->
     <column name="name" type="VARCHAR" size="128" />
     <column name="surname" type="VARCHAR" size="128" />
     <column name="role" type="VARCHAR" size="128" />
