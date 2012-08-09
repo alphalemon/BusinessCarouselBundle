@@ -10,9 +10,9 @@
  * file that was distributed with this source code.
  *
  * For extra documentation and help please visit http://www.alphalemon.com
- * 
+ *
  * @license    GPL LICENSE Version 2.0
- * 
+ *
  */
 
 namespace AlphaLemon\Block\BusinessCarouselBundle\Core\Block;
@@ -24,16 +24,16 @@ use AlphaLemon\Block\BusinessCarouselBundle\Model\AlAppBusinessCarouselQuery;
 class AlBlockManagerBusinessCarousel extends AlBlockManager
 {
     public function getDefaultValue() {
-        return array('HtmlContent' => '', 
+        return array('HtmlContent' => '',
                      'InternalJavascript' => '$(".carousel").startCarousel();');
     }
-    
+
     public function getHtmlContentForDeploy()
     {
         $carousel = '';
         $elements = array();
         if(class_exists('AlphaLemon\Block\BusinessCarouselBundle\Model\AlAppBusinessCarouselQuery')) {
-            $items = AlAppBusinessCarouselQuery::create()->filterByAlBlock($this->alBlock)->find();
+            $items = AlAppBusinessCarouselQuery::create()->filterByBlockId($this->alBlock->getId())->find();
             foreach($items as $item) {
                 $elements[] = sprintf('<li><div>%s</div><span><strong class="color1">%s %s,</strong> <br />%s</span></li>', $item->getContent(), $item->getName(), $item->getSurname(), $item->getRole());
             }
@@ -45,24 +45,24 @@ class AlBlockManagerBusinessCarousel extends AlBlockManager
             $carousel .= '<a href="#" class="up"></a>';
             $carousel .= '<a href="#" class="down"></a>';
             $carousel .= '</div>';
-        }        
-        
+        }
+
         return $carousel;
     }
-    
+
     public function getHtmlContent() {
         return $this->getHtmlContentForDeploy() . sprintf('<script type="text/javascript">%s</script>', $this->getInternalJavascript());
     }
-    
+
     protected function add(array $values) {
         try
         {
             $this->connection->beginTransaction();
-            
+
             // Adds the content
             $rollback = !parent::add($values);
             if(!$rollback) {
-                
+
                 // Adds the carousel default data
                 $carousel = new AlAppBusinessCarousel();
                 $carousel->setAlBlock($this->alBlock);
@@ -71,13 +71,13 @@ class AlBlockManagerBusinessCarousel extends AlBlockManager
                 $carousel->setRole('Ceo');
                 $carousel->setContent('This web application is awesome!!');
                 $carousel->save();
-                $result = $carousel->save(); 
+                $result = $carousel->save();
                 if ($carousel->isModified() && $result == 0) $rollback = true;
             }
 
             // Commits or rollbacks the transaction
             if (!$rollback) {
-                $this->connection->commit();                
+                $this->connection->commit();
                 return true;
             }
             else {
@@ -91,6 +91,6 @@ class AlBlockManagerBusinessCarousel extends AlBlockManager
             throw $e;
         }
     }
-    
-    
+
+
 }

@@ -2,10 +2,10 @@
     "bundles" : {
         "AlphaLemon\\Block\\BusinessCarouselBundle\\BusinessCarouselBundle" : {
             "environments" : ["all"]
+        },
+        "AlphaLemon\\ElFinderBundle\\AlphaLemonElFinderBundle" : {
+            "environments" : ["alcms"]
         }
     },
-    "scripts" : {
-        "package-installed" : "\\AlphaLemon\\Block\\BusinessCarouselBundle\\Core\\Listener\\SetupListener",
-        "package-uninstalled" : "\\AlphaLemon\\Block\\BusinessCarouselBundle\\Core\\Listener\\SetupListener"
-    }
+    "actionManager" : "AlphaLemon\\Block\\BusinessCarouselBundle\\Core\\ActionManager\\ActionManagerBusinessCarousel"
 }
