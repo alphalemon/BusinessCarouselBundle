@@ -34,24 +34,25 @@ class ActionManagerBusinessCarousel extends ActionManager
             $commandProcessor->executeCommands($commands);
 
             // Retrieves the CREATE TABLE for the al_app_business_carousel table
-            $sqlFile = $sqlFolder . DIRECTORY_SEPARATOR .  'default.sql';
-            $sql = file_get_contents($sqlFile);
+            $sqlFile = $sqlFolder . DIRECTORY_SEPARATOR .  'default.sql';           
+            if (is_file($sqlFile)) {
+                $sql = file_get_contents($sqlFile);
+                $query =
+                    'CREATE TABLE IF NOT EXISTS `al_app_business_carousel` (
+                        `id` int(11) NOT NULL AUTO_INCREMENT,
+                        `block_id` int(11) NOT NULL,
+                        `name` varchar(128) DEFAULT NULL,
+                        `surname` varchar(128) DEFAULT NULL,
+                        `role` varchar(128) DEFAULT NULL,
+                        `content` text NOT NULL,
+                        PRIMARY KEY (`id`),
+                        KEY `I_BLOCK` (`block_id`)
+                    ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;';
+                preg_match('/CREATE TABLE `al_app_business_carousel[^;]+/s', $sql, $match);
+                if (!empty($match)) $query = $match[0];
 
-            $query =
-                'CREATE TABLE IF NOT EXISTS `al_app_business_carousel` (
-                    `id` int(11) NOT NULL AUTO_INCREMENT,
-                    `block_id` int(11) NOT NULL,
-                    `name` varchar(128) DEFAULT NULL,
-                    `surname` varchar(128) DEFAULT NULL,
-                    `role` varchar(128) DEFAULT NULL,
-                    `content` text NOT NULL,
-                    PRIMARY KEY (`id`),
-                    KEY `I_BLOCK` (`block_id`)
-                ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;';
-            preg_match('/CREATE TABLE `al_app_business_carousel[^;]+/s', $sql, $match);
-            if (!empty($match)) $query = $match[0];
-            
-            $this->executeQuery($query);
+                $this->executeQuery($query);
+            }
         }
         catch(\Exception $ex) {
             throw $ex;
@@ -67,7 +68,7 @@ class ActionManagerBusinessCarousel extends ActionManager
         // Removes the al_app_business_carousel table
         $this->executeQuery('DROP TABLE `al_app_business_carousel`;');
     }
-    
+
     private function executeQuery($query)
     {
         $orm = new AlBusinessCarouselRepositoryPropel();
