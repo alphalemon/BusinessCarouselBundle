@@ -2,9 +2,6 @@
     "bundles" : {
         "AlphaLemon\\Block\\BusinessCarouselBundle\\BusinessCarouselBundle" : {
             "environments" : ["all"]
-        },
-        "AlphaLemon\\ElFinderBundle\\AlphaLemonElFinderBundle" : {
-            "environments" : ["alcms"]
         }
     },
     "actionManager" : "AlphaLemon\\Block\\BusinessCarouselBundle\\Core\\ActionManager\\ActionManagerBusinessCarousel"

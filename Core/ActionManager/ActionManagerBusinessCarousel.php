@@ -34,7 +34,8 @@ class ActionManagerBusinessCarousel extends ActionManager
             $commandProcessor->executeCommands($commands);
 
             // Retrieves the CREATE TABLE for the al_app_business_carousel table
-            $sqlFile = $sqlFolder . DIRECTORY_SEPARATOR .  'default.sql';           
+            /* TODO
+            $sqlFile = $sqlFolder . DIRECTORY_SEPARATOR .  'default.sql';
             if (is_file($sqlFile)) {
                 $sql = file_get_contents($sqlFile);
                 $query =
@@ -52,7 +53,19 @@ class ActionManagerBusinessCarousel extends ActionManager
                 if (!empty($match)) $query = $match[0];
 
                 $this->executeQuery($query);
-            }
+            }*/
+
+            $query = 'CREATE TABLE IF NOT EXISTS `al_app_business_carousel` (
+                        `id` int(11) NOT NULL AUTO_INCREMENT,
+                        `block_id` int(11) NOT NULL,
+                        `name` varchar(128) DEFAULT NULL,
+                        `surname` varchar(128) DEFAULT NULL,
+                        `role` varchar(128) DEFAULT NULL,
+                        `content` text NOT NULL,
+                        PRIMARY KEY (`id`),
+                        KEY `I_BLOCK` (`block_id`)
+                    ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;';
+            $this->executeQuery($query);
         }
         catch(\Exception $ex) {
             throw $ex;
