@@ -23,7 +23,8 @@ use AlphaLemon\Block\BusinessCarouselBundle\Model\AlAppBusinessCarouselQuery;
 
 class AlBlockManagerBusinessCarousel extends AlBlockManager
 {
-    public function getDefaultValue() {
+    public function getDefaultValue()
+    {
         return array('HtmlContent' => '',
                      'InternalJavascript' => '$(".carousel").startCarousel();');
     }
@@ -50,14 +51,17 @@ class AlBlockManagerBusinessCarousel extends AlBlockManager
         return $carousel;
     }
 
-    public function getHtmlContent() {
+    /**/
+    public function getHtmlContent()
+    {
         return $this->getHtmlContentForDeploy() . sprintf('<script type="text/javascript">%s</script>', $this->getInternalJavascript());
     }
 
-    protected function add(array $values) {
+    protected function add(array $values)
+    {
         try
         {
-            $this->connection->beginTransaction();
+            $this->blockRepository->startTransaction();
 
             // Adds the content
             $rollback = !parent::add($values);
@@ -65,7 +69,8 @@ class AlBlockManagerBusinessCarousel extends AlBlockManager
 
                 // Adds the carousel default data
                 $carousel = new AlAppBusinessCarousel();
-                $carousel->setAlBlock($this->alBlock);
+                //$carousel->setAlBlock($this->alBlock);
+                $carousel->setBlockId($this->alBlock->getId());
                 $carousel->setName('John');
                 $carousel->setSurname('Doe');
                 $carousel->setRole('Ceo');
@@ -77,11 +82,11 @@ class AlBlockManagerBusinessCarousel extends AlBlockManager
 
             // Commits or rollbacks the transaction
             if (!$rollback) {
-                $this->connection->commit();
+                $this->blockRepository->commit();
                 return true;
             }
             else {
-                $this->connection->rollBack();
+                $this->blockRepository->rollBack();
                 return false;
             }
         }
@@ -91,6 +96,4 @@ class AlBlockManagerBusinessCarousel extends AlBlockManager
             throw $e;
         }
     }
-
-
 }
