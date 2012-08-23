@@ -3,6 +3,5 @@
         "AlphaLemon\\Block\\BusinessCarouselBundle\\BusinessCarouselBundle" : {
             "environments" : ["all"]
         }
-    },
-    "actionManager" : "AlphaLemon\\Block\\BusinessCarouselBundle\\Core\\ActionManager\\ActionManagerBusinessCarousel"
+    }
 }

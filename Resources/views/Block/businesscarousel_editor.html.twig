@@ -2,45 +2,17 @@
  This file is part of the BusinessCarouselBundle and it is distributed
  under the GPL LICENSE Version 2.0. To use this application you must leave
  intact this copyright notice.
- 
+
     Copyright (c) AlphaLemon <webmaster@alphalemon.com>
- 
+
  For the full copyright and license information, please view the LICENSE
  file that was distributed with this source code.
- 
- For extra documentation and help please visit http://www.alphalemon.com
- 
-    @license    GPL LICENSE Version 2.0 
-#}
- 
- <div class="al_items_list">
-    {% if items is defined %}
-    <table>
-    {% for item in items %}
-        <tr class="{{ cycle(['alternate_row', 'row'], loop.index) }}">
-            <td width="33%">{{ item.name }}</td>
-            <td width="33%">{{ item.surname }}</td>
-            <td width="33%">{{ item.role }}</td>
-            <td><a href="#" rel="{{ item.id }}" class="al_edit_carousel_item">Edit</a></td>
-            <td><a href="#" class="al_delete_carousel_item" rel="{{ item.id }}">Delete</a></td>
-        </tr>
-    {% endfor %}
-    </table>
-    {% else %}
-        Any item has been added
-    {% endif %}
-</div>
-<div class="al_carousel_commands_box">
-    <ul>
-        <li><input type="submit" value="New" class="al_add_carousel_item input button al_large" /></li>
-    </ul>
-</div>
 
-<script>
-    $(document).ready(function()
-    {
-        $('.al_add_carousel_item').AddCarouselItem({{ block_id }});
-        $('.al_edit_carousel_item').EditCarouselItem({{ block_id }});
-        $('.al_delete_carousel_item').DeleteCarouselItem({{ block_id }});
-    });
-</script>
+ For extra documentation and help please visit http://www.alphalemon.com
+
+    @license    GPL LICENSE Version 2.0
+#}
+
+{% extends "AlphaLemonCmsBundle:Block:Json/list.html.twig" %}
+
+

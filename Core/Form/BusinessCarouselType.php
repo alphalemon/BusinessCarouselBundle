@@ -10,42 +10,29 @@
  * file that was distributed with this source code.
  *
  * For extra documentation and help please visit http://www.alphalemon.com
- * 
+ *
  * @license    GPL LICENSE Version 2.0
- * 
+ *
  */
 
 namespace AlphaLemon\Block\BusinessCarouselBundle\Core\Form;
 
-use Symfony\Component\Form\AbstractType;
+use AlphaLemon\AlphaLemonCmsBundle\Core\Form\JsonBlock\JsonBlockType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\MinLength;
 use Symfony\Component\Validator\Constraints\Collection;
 
-class AlCarouselItemType extends AbstractType
+class BusinessCarouselType extends JsonBlockType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('id', 'hidden');
-        $builder->add('block_id', 'hidden');
+        parent::buildForm($builder, $options);
+        
         $builder->add('name');
         $builder->add('surname');
-        $builder->add('role');  
-        $builder->add('content');
-    }
-
-    public function getDefaultOptions(array $options)
-    {
-        return array(
-            'data_class' => 'AlphaLemon\Block\BusinessCarouselBundle\Model\AlAppBusinessCarousel',
-            //'csrf_protection' => false,
-        );
-    }
-
-    public function getName()
-    {
-        return 'al_carousel_item';
+        $builder->add('role');
+        $builder->add('comment', 'textarea');
     }
 }

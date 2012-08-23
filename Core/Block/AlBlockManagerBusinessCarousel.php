@@ -17,15 +17,25 @@
 
 namespace AlphaLemon\Block\BusinessCarouselBundle\Core\Block;
 
-use AlphaLemon\AlphaLemonCmsBundle\Core\Content\Block\AlBlockManager;
+use AlphaLemon\AlphaLemonCmsBundle\Core\Content\Block\JsonBlock\AlBlockManagerJsonBlock;
 use AlphaLemon\Block\BusinessCarouselBundle\Model\AlAppBusinessCarousel;
 use AlphaLemon\Block\BusinessCarouselBundle\Model\AlAppBusinessCarouselQuery;
 
-class AlBlockManagerBusinessCarousel extends AlBlockManager
+class AlBlockManagerBusinessCarousel extends AlBlockManagerJsonBlock
 {
     public function getDefaultValue()
     {
-        return array('HtmlContent' => '',
+        $value =
+        '{
+            "0" : {
+                "name" : "John",
+                "surname" : "Doe",
+                "role" : "Ceo",
+                "comment" : "This web application is really cool!"
+            }
+        }';
+
+        return array('HtmlContent' => $value,
                      'InternalJavascript' => '$(".carousel").startCarousel();');
     }
 
@@ -33,12 +43,12 @@ class AlBlockManagerBusinessCarousel extends AlBlockManager
     {
         $carousel = '';
         $elements = array();
-        if(class_exists('AlphaLemon\Block\BusinessCarouselBundle\Model\AlAppBusinessCarouselQuery')) {
-            $items = AlAppBusinessCarouselQuery::create()->filterByBlockId($this->alBlock->getId())->find();
-            foreach($items as $item) {
-                $elements[] = sprintf('<li><div>%s</div><span><strong class="color1">%s %s,</strong> <br />%s</span></li>', $item->getContent(), $item->getName(), $item->getSurname(), $item->getRole());
-            }
+        $items = json_decode($this->alBlock->getHtmlContent());
+        foreach($items as $item) {
+            $elements[] = sprintf('<li><div>%s</div><span><strong class="color1">%s %s,</strong> <br />%s</span></li>', $item->comment, $item->name, $item->surname, $item->role);
+        }
 
+        if (!empty($elements)) {
             $carousel = '<div class="carousel_container">';
             $carousel .= '<div class="carousel">';
             $carousel .= sprintf('<ul>%s</ul>', implode("\n", $elements));
@@ -47,53 +57,11 @@ class AlBlockManagerBusinessCarousel extends AlBlockManager
             $carousel .= '<a href="#" class="down"></a>';
             $carousel .= '</div>';
         }
+        else
+        {
+            $carousel = '<p>Any item has been added</p>';
+        }
 
         return $carousel;
-    }
-
-    /**/
-    public function getHtmlContent()
-    {
-        return $this->getHtmlContentForDeploy() . sprintf('<script type="text/javascript">%s</script>', $this->getInternalJavascript());
-    }
-
-    protected function add(array $values)
-    {
-        try
-        {
-            $this->blockRepository->startTransaction();
-
-            // Adds the content
-            $rollback = !parent::add($values);
-            if(!$rollback) {
-
-                // Adds the carousel default data
-                $carousel = new AlAppBusinessCarousel();
-                //$carousel->setAlBlock($this->alBlock);
-                $carousel->setBlockId($this->alBlock->getId());
-                $carousel->setName('John');
-                $carousel->setSurname('Doe');
-                $carousel->setRole('Ceo');
-                $carousel->setContent('This web application is awesome!!');
-                $carousel->save();
-                $result = $carousel->save();
-                if ($carousel->isModified() && $result == 0) $rollback = true;
-            }
-
-            // Commits or rollbacks the transaction
-            if (!$rollback) {
-                $this->blockRepository->commit();
-                return true;
-            }
-            else {
-                $this->blockRepository->rollBack();
-                return false;
-            }
-        }
-        catch(\Exception $e)
-        {
-            if(isset($this->connection) && $this->connection !== null) $this->connection->rollback();
-            throw $e;
-        }
     }
 }

@@ -22,12 +22,9 @@
             <parameter>@BusinessCarouselBundle/Resources/public/css/business-carousel-editor.css</parameter>
         </parameter>
 
-        <parameter key="businesscarousel.external_javascripts.cms" type="collection">
-            <parameter>@BusinessCarouselBundle/Resources/public/js/crud.js</parameter>
-        </parameter>
-
         <parameter key="businesscarouseleditor_rendering.class">AlphaLemon\Block\BusinessCarouselBundle\Core\Listener\RenderingEditorListener</parameter>
         <parameter key="app_businesscarousel.block.class">AlphaLemon\Block\BusinessCarouselBundle\Core\Block\AlBlockManagerBusinessCarousel</parameter>
+        <parameter key="businesscarousel.form.class">AlphaLemon\Block\BusinessCarouselBundle\Core\Form\BusinessCarouselType</parameter>
     </parameters>
 
     <services>
@@ -38,6 +35,9 @@
 
         <service id="businesscarouseleditor_rendering.class" class="%businesscarouseleditor_rendering.class%">
             <tag name="alcms.event_listener" event="actions.block_editor_rendering" method="onBlockEditorRendering" priority="0" />
+        </service>
+        
+        <service id="businesscarousel.form" class="%businesscarousel.form.class%">
         </service>
     </services>
 </container>
