@@ -20,10 +20,6 @@ namespace AlphaLemon\Block\BusinessCarouselBundle\Core\Form;
 use AlphaLemon\AlphaLemonCmsBundle\Core\Form\JsonBlock\JsonBlockType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints\MinLength;
-use Symfony\Component\Validator\Constraints\Collection;
-
 class BusinessCarouselType extends JsonBlockType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
