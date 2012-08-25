@@ -5,23 +5,16 @@
     "homepage": "http://alphalemon.com",
     "type": "symfony-bundle",
     "license": "GPLv2",
-    "authors": [
-    {
+    "authors": [{
       "name": "AlphaLemon",
       "email": "info@alphalemon.com"
-    }
-    ],
+    }],
+    "require": {
+        "symfony/symfony": "2.1.*"
+    },
     "autoload": {
         "psr-0": { "AlphaLemon\\Block\\BusinessCarouselBundle": ""
         }
     },
-    "target-dir" : "AlphaLemon/Block/BusinessCarouselBundle",
-    "scripts": {
-        "post-install-cmd": [
-            "AlphaLemon\\Block\\BusinessCarouselBundle\\Composer\\ScriptHandler::setupDatabase"
-        ],
-        "post-update-cmd": [
-            "AlphaLemon\\Block\\BusinessCarouselBundle\\Composer\\ScriptHandler::setupDatabase"
-        ]
-    }
+    "target-dir" : "AlphaLemon/Block/BusinessCarouselBundle"
 }
