@@ -10,11 +10,12 @@
       "email": "info@alphalemon.com"
     }],
     "require": {
-        "symfony/symfony": "2.1.*"
+        "alphalemon/alphalemon-cms-bundle": "dev-master"
     },
     "autoload": {
         "psr-0": { "AlphaLemon\\Block\\BusinessCarouselBundle": ""
         }
     },
-    "target-dir" : "AlphaLemon/Block/BusinessCarouselBundle"
+    "target-dir" : "AlphaLemon/Block/BusinessCarouselBundle",
+    "minimum-stability": "dev"
 }

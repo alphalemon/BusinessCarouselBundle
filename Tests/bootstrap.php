@@ -26,4 +26,17 @@ You must set up the project dependencies, run the following commands:
 wget http://getcomposer.org/composer.phar
 php composer.phar install
 EOT
-    );
+    );}
+
+if (0 === strncasecmp(PHP_SAPI, 'cli', 3)) {
+    set_include_path(__DIR__ . '/../vendor/propel/propel1'.PATH_SEPARATOR.get_include_path());
+    set_include_path(__DIR__ . '/../vendor/phing/phing/classes'.PATH_SEPARATOR.get_include_path());
+}
+
+if (class_exists('PropelQuickBuilder') && class_exists('TypehintableBehavior')) {//
+    $class = new \ReflectionClass('TypehintableBehavior');
+    $builder = new \PropelQuickBuilder();
+    $builder->getConfig()->setBuildProperty('behavior.typehintable.class', $class->getFileName());
+    $builder->setSchema(file_get_contents(__DIR__.'/../vendor/alphalemon/alphalemon-cms-bundle/AlphaLemon/AlphaLemonCmsBundle/Resources/config/schema.xml'));
+    $builder->buildClasses();
+}
