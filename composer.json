@@ -9,7 +9,7 @@
       "name": "AlphaLemon",
       "email": "info@alphalemon.com"
     }],
-    "require": {
+    "require-dev": {
         "alphalemon/alphalemon-cms-bundle": "dev-master"
     },
     "autoload": {
