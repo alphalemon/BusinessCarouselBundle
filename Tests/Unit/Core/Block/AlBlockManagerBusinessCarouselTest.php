@@ -58,7 +58,7 @@ class AlBlockManagerBusinessCarouselTest extends TestCase
         $this->assertEquals('', $this->blockManager->getHtmlContentForDeploy());
     }
 
-    public function testAnEmptyStringIsReturnedWhenTheBlockHasNotBeenSet1()
+    public function testTheCarouselIsRendered()
     {
         $block = $this->setUpBlock();
         $this->blockManager->set($block);
