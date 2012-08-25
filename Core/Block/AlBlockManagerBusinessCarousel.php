@@ -41,6 +41,8 @@ class AlBlockManagerBusinessCarousel extends AlBlockManagerJsonBlock
 
     public function getHtmlContentForDeploy()
     {
+        if (null === $this->alBlock) return "";
+
         $carousel = '';
         $elements = array();
         $items = json_decode($this->alBlock->getHtmlContent());
