@@ -35,8 +35,10 @@ class AlBlockManagerBusinessCarousel extends AlBlockManagerJsonBlock
             }
         }';
 
-        return array('HtmlContent' => $value,
-                     'InternalJavascript' => '$(".carousel").startCarousel();');
+        return array(
+            'HtmlContent' => $value,
+            'InternalJavascript' => '$(".carousel").startCarousel();'
+        );
     }
 
     public function getHtmlContentForDeploy()
