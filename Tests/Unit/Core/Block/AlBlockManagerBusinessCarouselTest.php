@@ -55,14 +55,14 @@ class AlBlockManagerBusinessCarouselTest extends TestCase
 
     public function testAnEmptyStringIsReturnedWhenTheBlockHasNotBeenSet()
     {
-        $this->assertEquals('', $this->blockManager->getHtmlContentForDeploy());
+        $this->assertEquals('', $this->blockManager->getHtml());
     }
 
     public function testTheCarouselIsRendered()
     {
         $block = $this->setUpBlock();
         $this->blockManager->set($block);
-        $content = $this->blockManager->getHtmlContentForDeploy();
+        $content = $this->blockManager->getHtml();
 
         $expectedResult = '<div class="carousel_container"><div class="carousel"><ul><li><div>This web application is really cool!</div><span><strong class="color1">John Doe,</strong> <br />Ceo</span></li>' . PHP_EOL;
         $expectedResult .= '<li><div>Amazing web app!</div><span><strong class="color1">Jane Doe,</strong> <br />Art Director</span></li></ul></div><a href="#" class="up"></a><a href="#" class="down"></a></div>';
