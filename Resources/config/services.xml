@@ -23,16 +23,10 @@
         </parameter>
 
         <parameter key="businesscarouseleditor_rendering.class">AlphaLemon\Block\BusinessCarouselBundle\Core\Listener\RenderingEditorListener</parameter>
-        <parameter key="app_businesscarousel.block.class">AlphaLemon\Block\BusinessCarouselBundle\Core\Block\AlBlockManagerBusinessCarousel</parameter>
         <parameter key="businesscarousel.form.class">AlphaLemon\Block\BusinessCarouselBundle\Core\Form\BusinessCarouselType</parameter>
     </parameters>
 
     <services>
-        <service id="app_businesscarousel.block" class="%app_businesscarousel.block.class%">
-            <argument type="service" id="alpha_lemon_cms.events_handler" />
-            <tag name="alphalemon_cms.blocks_factory.block" description="Business carousel"  type="BusinessCarousel" group="business_theme_apps" />
-        </service>
-
         <service id="businesscarouseleditor_rendering.class" class="%businesscarouseleditor_rendering.class%">
             <tag name="alcms.event_listener" event="actions.block_editor_rendering" method="onBlockEditorRendering" priority="0" />
         </service>
