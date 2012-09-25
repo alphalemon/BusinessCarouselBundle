@@ -32,8 +32,8 @@ class AlBlockManagerBusinessCarouselTest extends TestCase
         parent::setUp();
 
         $factoryRepository = $this->getMock('AlphaLemon\AlphaLemonCmsBundle\Core\Repository\Factory\AlFactoryRepositoryInterface');
-        $dispatcher = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
-        $this->blockManager = new AlBlockManagerBusinessCarousel($dispatcher, $factoryRepository);
+        $eventsHandler = $this->getMock('AlphaLemon\AlphaLemonCmsBundle\Core\EventsHandler\AlEventsHandlerInterface');
+        $this->blockManager = new AlBlockManagerBusinessCarousel($eventsHandler, $factoryRepository);
     }
 
     public function testDefaultValue()
