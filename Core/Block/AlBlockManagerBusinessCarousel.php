@@ -36,7 +36,7 @@ class AlBlockManagerBusinessCarousel extends AlBlockManagerJsonBlock
         }';
 
         return array(
-            'HtmlContent' => $value,
+            'Content' => $value,
             'InternalJavascript' => '$(".carousel").startCarousel();'
         );
     }
@@ -47,7 +47,7 @@ class AlBlockManagerBusinessCarousel extends AlBlockManagerJsonBlock
 
         $carousel = '';
         $elements = array();
-        $items = json_decode($this->alBlock->getHtmlContent());
+        $items = json_decode($this->alBlock->getContent());
         foreach($items as $item) {
             $elements[] = sprintf('<li><div>%s</div><span><strong class="color1">%s %s,</strong> <br />%s</span></li>', $item->comment, $item->name, $item->surname, $item->role);
         }

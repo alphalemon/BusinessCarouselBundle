@@ -48,7 +48,7 @@ class AlBlockManagerBusinessCarouselTest extends TestCase
             }
         }';
         $expectedValue = array(
-            'HtmlContent' => $value,
+            'Content' => $value,
             'InternalJavascript' => '$(".carousel").startCarousel();',);
         $this->assertEquals($expectedValue, $this->blockManager->getDefaultValue());
     }
@@ -89,7 +89,7 @@ class AlBlockManagerBusinessCarouselTest extends TestCase
 
         $block = $this->getMock('AlphaLemon\AlphaLemonCmsBundle\Model\AlBlock');
         $block->expects($this->once())
-            ->method('getHtmlContent')
+            ->method('getContent')
             ->will($this->returnValue($value));
 
         return $block;
