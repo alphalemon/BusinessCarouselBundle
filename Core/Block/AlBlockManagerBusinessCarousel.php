@@ -68,4 +68,9 @@ class AlBlockManagerBusinessCarousel extends AlBlockManagerJsonBlock
 
         return $carousel;
     }
+
+    public function getHideInEditMode()
+    {
+        return true;
+    }
 }

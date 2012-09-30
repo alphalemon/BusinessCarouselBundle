@@ -69,6 +69,11 @@ class AlBlockManagerBusinessCarouselTest extends TestCase
         $this->assertEquals($expectedResult, $content);
     }
 
+    public function testGetHideInEditMode()
+    {
+        $this->assertTrue($this->blockManager->getHideInEditMode());
+    }
+
     private function setUpBlock()
     {
         $value =
