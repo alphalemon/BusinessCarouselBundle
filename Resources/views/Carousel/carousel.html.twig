@@ -1,0 +1,22 @@
+<div class="carousel_container">
+    <div class="carousel">
+        {% if items|length > 0 %}
+        <ul>
+            {% for item in items %}
+            <li>
+                <div>{{ item.comment }}</div>
+                <span>
+                    <strong class="color1">{{ item.name }} {{ item.surname }},</strong>
+                    <br />
+                    {{ item.role }}
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>Any item has been added</p>
+        {% endif %}
+    </div>
+    <a href="#" class="up"></a>
+    <a href="#" class="down"></a>
+</div>

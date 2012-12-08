@@ -18,8 +18,6 @@
 namespace AlphaLemon\Block\BusinessCarouselBundle\Core\Block;
 
 use AlphaLemon\AlphaLemonCmsBundle\Core\Content\Block\JsonBlock\AlBlockManagerJsonBlock;
-use AlphaLemon\Block\BusinessCarouselBundle\Model\AlAppBusinessCarousel;
-use AlphaLemon\Block\BusinessCarouselBundle\Model\AlAppBusinessCarouselQuery;
 
 class AlBlockManagerBusinessCarousel extends AlBlockManagerJsonBlock
 {
@@ -43,30 +41,20 @@ class AlBlockManagerBusinessCarousel extends AlBlockManagerJsonBlock
 
     public function getHtml()
     {
-        if (null === $this->alBlock) return "";
-
-        $carousel = '';
-        $elements = array();
-        $items = json_decode($this->alBlock->getContent());
-        foreach($items as $item) {
-            $elements[] = sprintf('<li><div>%s</div><span><strong class="color1">%s %s,</strong> <br />%s</span></li>', $item->comment, $item->name, $item->surname, $item->role);
+        if (null === $this->alBlock) {
+            return "";
         }
-
-        if (!empty($elements)) {
-            $carousel = '<div class="carousel_container">';
-            $carousel .= '<div class="carousel">';
-            $carousel .= sprintf('<ul>%s</ul>', implode("\n", $elements));
-            $carousel .= '</div>';
-            $carousel .= '<a href="#" class="up"></a>';
-            $carousel .= '<a href="#" class="down"></a>';
-            $carousel .= '</div>';
-        }
-        else
-        {
-            $carousel = '<p>Any item has been added</p>';
-        }
-
-        return $carousel;
+        
+        $items = json_decode($this->alBlock->getContent(), true);
+        
+        return array(
+            "RenderView" => array(
+                "view" => "BusinessCarouselBundle:Carousel:carousel.html.twig",
+                "options" => array(
+                    "items" => $items,
+                )
+            )
+        );
     }
 
     public function getHideInEditMode()
